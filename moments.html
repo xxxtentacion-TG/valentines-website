@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Moments</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div id="bg-particles"></div>
+
+    <div class="container">
+        <h1 class="premium-title hidden">Our Journey Together</h1>
+        <p class="hidden" style="margin-bottom: 3rem;">Every second with you is a memory I cherish.</p>
+
+        <!-- Countdown Section -->
+        <div class="countdown hidden">
+            <div class="time-unit">
+                <span id="days" class="number">0</span>
+                <span class="label">Days</span>
+            </div>
+            <div class="time-unit">
+                <span id="hours" class="number">00</span>
+                <span class="label">Hours</span>
+            </div>
+            <div class="time-unit">
+                <span id="minutes" class="number">00</span>
+                <span class="label">Mins</span>
+            </div>
+            <div class="time-unit">
+                <span id="seconds" class="number">00</span>
+                <span class="label">Secs</span>
+            </div>
+        </div>
+
+
+        <!-- Shuffle Button -->
+        <button id="shuffle-btn" class="btn" style="margin-bottom: 2rem;">Shuffle Memories</button>
+
+        <!-- Gallery Section -->
+        <div class="gallery-container hidden">
+            <!-- Replace src with your images -->
+            <div class="photo-card" style="transform: rotate(-2deg);">
+                <img src="assets/images/img1.jpeg" alt="Memory 1"
+                    onerror="this.src='https://via.placeholder.com/300x450/111/fff?text=Photo+1'">
+                <div class="caption">The day we met</div>
+            </div>
+            <div class="photo-card" style="transform: rotate(2deg);">
+                <img src="assets/images/img2.jpeg" alt="Memory 2"
+                    onerror="this.src='https://via.placeholder.com/300x450/111/fff?text=Photo+2'">
+                <div class="caption">Our first trip</div>
+            </div>
+            <div class="photo-card" style="transform: rotate(-1deg);">
+                <img src="assets/images/img3.jpeg" alt="Memory 3"
+                    onerror="this.src='https://via.placeholder.com/300x450/111/fff?text=Photo+3'">
+                <div class="caption">Just us</div>
+            </div>
+            <div class="photo-card" style="transform: rotate(3deg);">
+                <img src="assets/images/img5.jpeg" alt="Memory 4"
+                    onerror="this.src='https://via.placeholder.com/300x450/111/fff?text=Photo+4'">
+                <div class="caption">Laughter</div>
+            </div>
+            <div class="photo-card" style="transform: rotate(-3deg);">
+                <img src="assets/images/img7.jpeg" alt="Memory 5"
+                    onerror="this.src='https://via.placeholder.com/300x450/111/fff?text=Photo+5'">
+                <div class="caption">Adventures</div>
+            </div>
+            <div class="photo-card" style="transform: rotate(1deg);">
+                <img src="assets/images/img8.jpeg" alt="Memory 6"
+                    onerror="this.src='https://via.placeholder.com/300x450/111/fff?text=Photo+6'">
+                <div class="caption">Forever</div>
+            </div>
+        </div>
+
+        <a href="music.html" class="btn btn-loading hidden">Next Chapter</a>
+    </div>
+
+    <footer class="nav-footer">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="moments.html" class="nav-link" style="color: var(--accent-gold);">Moments</a>
+        <a href="music.html" class="nav-link">Music</a>
+        <a href="reasons.html" class="nav-link">Reasons</a>
+        <a href="pop.html" class="nav-link">Pop</a>
+        <a href="surprise.html" class="nav-link">Surprise</a>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

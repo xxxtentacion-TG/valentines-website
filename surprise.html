@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forever | Surprise</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Specific Internal Styles for Surprise Page Experience */
+
+        /* Full Screen Immersive Reset */
+        body,
+        html {
+            height: 100%;
+            overflow: hidden;
+            /* Prevent scrolling for immersion */
+        }
+
+        .container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Central Glow Source */
+        .ambient-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, rgba(197, 160, 89, 0.05) 0%, rgba(0, 0, 0, 0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+            transition: all 1s ease-out;
+            pointer-events: none;
+        }
+
+        /* Heartbeat Animation State */
+        .heartbeat-active .ambient-glow {
+            background: radial-gradient(circle, rgba(160, 40, 40, 0.2) 0%, rgba(0, 0, 0, 0) 80%);
+            animation: pulseGlow 1.2s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.5;
+            }
+
+            15% {
+                transform: translate(-50%, -50%) scale(1.3);
+                opacity: 0.8;
+            }
+
+            30% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.5;
+            }
+
+            45% {
+                transform: translate(-50%, -50%) scale(1.1);
+                opacity: 0.6;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.5;
+            }
+        }
+
+        /* Main Text Typography */
+        .main-text-container {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            color: #fff;
+            text-align: center;
+            cursor: pointer;
+            z-index: 20;
+            padding: 20px;
+            user-select: none;
+        }
+
+        .word {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+            margin: 0 10px;
+        }
+
+        .word.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .highlight-word {
+            color: var(--accent-gold);
+            text-shadow: 0 0 20px rgba(197, 160, 89, 0.4);
+            position: relative;
+            transition: all 0.5s ease;
+        }
+
+        .highlight-word::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0%;
+            height: 1px;
+            background: var(--accent-gold);
+            transition: width 1s ease 1s;
+            /* Delay for effect */
+        }
+
+        .highlight-word.visible::after {
+            width: 100%;
+        }
+
+        /* Floating Background Lines */
+        .floating-text-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floating-line {
+            position: absolute;
+            font-family: var(--font-heading);
+            font-style: italic;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.3);
+            opacity: 0;
+            transition: opacity 2s ease, transform 10s linear;
+        }
+
+        /* Interactive Click Effect on Screen */
+        .click-ripple {
+            position: absolute;
+            border-radius: 50%;
+            transform: scale(0);
+            border: 1px solid rgba(197, 160, 89, 0.5);
+            animation: rippleEffect 1.5s linear forwards;
+            pointer-events: none;
+            z-index: 15;
+        }
+
+        @keyframes rippleEffect {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* Hidden Secret Section */
+        .secret-trigger {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            font-size: 0.8rem;
+            color: #333;
+            cursor: pointer;
+            transition: color 0.5s ease;
+            font-family: var(--font-body);
+            letter-spacing: 1px;
+            z-index: 50;
+        }
+
+        .secret-trigger:hover {
+            color: var(--accent-gold);
+        }
+
+        .secret-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1s ease;
+        }
+
+        .secret-modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .secret-content {
+            text-align: center;
+            max-width: 600px;
+            padding: 2rem;
+        }
+
+        .secret-msg {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            color: #fff;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            transform: translateY(20px);
+            transition: transform 1s ease;
+        }
+
+        .secret-modal.active .secret-msg {
+            transform: translateY(0);
+        }
+
+        .secret-close {
+            color: #666;
+            cursor: pointer;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .secret-close:hover {
+            color: #fff;
+        }
+
+        /* Final Quote after Heartbeat */
+        .final-date {
+            margin-top: 2rem;
+            font-size: 1rem;
+            letter-spacing: 3px;
+            color: #888;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 1s ease;
+            font-family: var(--font-body);
+        }
+
+        .final-date.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .main-text-container {
+                font-size: 2.2rem;
+            }
+
+            .floating-line {
+                font-size: 1rem;
+            }
+
+            .secret-msg {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Navigation Override for this page - Minimal */
+        .nav-footer {
+            position: fixed;
+            bottom: 0;
+            border-top: none;
+            background: linear-gradient(to top, rgba(0, 0, 0, 1), transparent);
+            padding-bottom: 10px;
+            pointer-events: none;
+            /* Let clicks pass through mostly */
+            opacity: 0.5;
+            transition: opacity 0.3s;
+        }
+
+        .nav-footer:hover {
+            opacity: 1;
+        }
+
+        .nav-footer a {
+            pointer-events: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="bg-particles"></div>
+    <div class="ambient-glow" id="ambient-glow"></div>
+
+    <div class="container" id="main-container">
+
+        <!-- Center Animated Text -->
+        <div class="main-text-container" onclick="triggerHeartbeat()">
+            <span class="word" id="word1">Will</span>
+            <span class="word" id="word2">you</span>
+            <span class="word" id="word3">be</span>
+            <span class="word" id="word4">with me</span>
+            <span class="word highlight-word" id="word5">forever?</span>
+        </div>
+
+
+
+    </div>
+
+    <!-- Floating Background Texts Container -->
+    <div class="floating-text-container" id="floating-container"></div>
+
+    <!-- Hidden Secret Trigger -->
+    <div class="secret-trigger" onclick="revealSecret()">
+        Click here
+    </div>
+
+    <!-- Secret Modal -->
+    <div class="secret-modal" id="secret-modal" onclick="closeSecret()">
+        <div class="secret-content">
+            <p class="secret-msg">"I really love you soo much syffaaaaaa,<br>you are ma everything."</p>
+            <div class="secret-close">Close Secret</div>
+        </div>
+    </div>
+
+    <footer class="nav-footer">
+        <a href="index.html" class="nav-link">Home</a>
+    </footer>
+
+    <script>
+        // --- 1. Particles Setup (Reused from logic) ---
+        function createParticles() {
+            const container = document.getElementById('bg-particles');
+            const particleCount = 40;
+
+            for (let i = 0; i < particleCount; i++) {
+                const p = document.createElement('div');
+                p.classList.add('particle');
+                p.style.left = Math.random() * 100 + 'vw';
+                p.style.animationDuration = (Math.random() * 10 + 10) + 's'; // Slower, dreamier
+                p.style.animationDelay = (Math.random() * 5) + 's';
+                p.style.width = Math.random() * 2 + 'px'; // Smaller dust
+                p.style.height = p.style.width;
+                p.style.opacity = Math.random() * 0.3;
+                container.appendChild(p);
+            }
+        }
+        createParticles();
+
+        // --- 2. Floating Text Logic ---
+        const floatingPhrases = [
+            "Some people feel like home.",
+            "I choose you every day.",
+            "Not just today. Always.",
+            "My heart found its place.",
+            "You are my favorite thought.",
+            "In a room full of art, I'd still stare at you."
+        ];
+
+        function spawnFloatingText() {
+            const container = document.getElementById('floating-container');
+            const el = document.createElement('div');
+            el.classList.add('floating-line');
+
+            // Random phrase
+            el.innerText = floatingPhrases[Math.floor(Math.random() * floatingPhrases.length)];
+
+            // Random Position
+            const top = Math.random() * 80 + 10; // 10% to 90% height
+            const left = Math.random() * 80 + 10; // 10% to 90% width
+
+            el.style.top = top + '%';
+            el.style.left = left + '%';
+
+            container.appendChild(el);
+
+            // Animate In
+            setTimeout(() => { el.style.opacity = 0.6; }, 100);
+
+            // Drift
+            const driftX = (Math.random() - 0.5) * 50;
+            const driftY = (Math.random() - 0.5) * 50;
+            el.style.transform = `translate(${driftX}px, ${driftY}px)`;
+
+            // Fade Out and Remove
+            setTimeout(() => {
+                el.style.opacity = 0;
+                setTimeout(() => el.remove(), 2000);
+            }, 6000);
+        }
+
+        // Spawn periodically
+        setInterval(spawnFloatingText, 4000);
+
+
+        // --- 3. Main Text Animation Sequence ---
+        window.onload = function () {
+            setTimeout(() => document.getElementById('word1').classList.add('visible'), 500);
+            setTimeout(() => document.getElementById('word2').classList.add('visible'), 1200);
+            setTimeout(() => document.getElementById('word3').classList.add('visible'), 1900);
+            setTimeout(() => document.getElementById('word4').classList.add('visible'), 2600);
+            setTimeout(() => document.getElementById('word5').classList.add('visible'), 3500);
+        };
+
+
+        // --- 4. Heartbeat Interaction ---
+        function triggerHeartbeat() {
+            const body = document.body;
+            const glow = document.getElementById('ambient-glow');
+            const date = document.getElementById('final-date');
+
+            // 1. Add heartbeat class to activate CSS animation
+            body.classList.add('heartbeat-active');
+
+            // 2. Create physical ripple effect at center
+            createRipple(window.innerWidth / 2, window.innerHeight / 2);
+
+            // 3. Show Date (Removed)
+            // setTimeout(() => {
+            //     if(date) date.classList.add('visible');
+            // }, 1000);
+
+            // Optional: Remove aggressive pulse after a few seconds but keep glow
+            setTimeout(() => {
+                // body.classList.remove('heartbeat-active'); // Keep it active for emotion
+            }, 5000);
+        }
+
+        // Click anywhere to ripple
+        document.addEventListener('click', function (e) {
+            // Don't ripple if clicking secret or links
+            if (e.target.closest('.secret-trigger') || e.target.closest('a') || e.target.closest('.secret-modal')) return;
+
+            createRipple(e.clientX, e.clientY);
+
+            // Also trigger the main heartbeat if not active yet
+            if (!document.body.classList.contains('heartbeat-active')) {
+                triggerHeartbeat();
+            }
+        });
+
+        function createRipple(x, y) {
+            const ripple = document.createElement('div');
+            ripple.classList.add('click-ripple');
+            ripple.style.left = (x - 50) + 'px'; // Center offset
+            ripple.style.top = (y - 50) + 'px';
+            ripple.style.width = '100px';
+            ripple.style.height = '100px';
+            document.body.appendChild(ripple);
+
+            setTimeout(() => ripple.remove(), 1500);
+        }
+
+        // --- 5. Secret Modal Logic ---
+        function revealSecret() {
+            const modal = document.getElementById('secret-modal');
+            modal.classList.add('active');
+        }
+
+        function closeSecret() {
+            const modal = document.getElementById('secret-modal');
+            modal.classList.remove('active');
+        }
+
+    </script>
+</body>
+
+</html>

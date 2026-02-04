@@ -1,0 +1,757 @@
+/* 
+  Theme: Dark Cinematic Premium
+  Author: Antigravity
+  Date: Feb 2026
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;400;600&display=swap');
+
+:root {
+    --bg-color: #000000;
+    --text-color: #f0f0f0;
+    --accent-gold: #c5a059;
+    /* Classic Gold */
+    --accent-silver: #a0a0a0;
+    --glass-bg: rgba(0, 0, 0, 0.95);
+    /* Almost solid black */
+    --glass-border: rgba(255, 255, 255, 0.15);
+    --transition-speed: 0.8s;
+    --font-heading: 'Cormorant Garamond', serif;
+    --font-body: 'Montserrat', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    background: #000;
+    /* Pure black */
+}
+
+/* Background Effects */
+#bg-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(circle at center, #111 0%, #000 70%);
+    /* Subtle gradient, mostly black */
+}
+
+/* Typography */
+h1,
+h2,
+h3 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    color: var(--accent-gold);
+    text-shadow: 0 0 10px rgba(197, 160, 89, 0.2);
+    text-transform: none;
+    /* Keep elegant casing */
+    letter-spacing: 1px;
+}
+
+/* Global Premium Utilities */
+.premium-title {
+    font-size: 3rem;
+    font-family: var(--font-heading);
+    color: #fff;
+    margin-bottom: 3rem;
+    animation: fadeReveal 2s ease-out;
+}
+
+@media (max-width: 768px) {
+    .premium-title {
+        font-size: 2.2rem;
+    }
+}
+
+p {
+    font-weight: 300;
+    line-height: 1.6;
+    letter-spacing: 0.5px;
+}
+
+/* Utilities */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+}
+
+/* Hero Box Styling - Compact & Premium */
+.hero-box {
+    position: relative;
+    padding: 2.5rem 2rem;
+    max-width: 700px;
+    /* Widened to fit single-line title */
+    width: 90%;
+    margin: 0 auto;
+    background: transparent;
+    text-align: center;
+
+    /* Animated Border Effect */
+    background-image: linear-gradient(#000, #000),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0.1));
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    animation: borderShimmer 5s infinite linear;
+}
+
+@keyframes borderShimmer {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+/* Typography */
+.hero-title {
+    font-size: 2.8rem;
+    /* Slightly larger for premium feel */
+    font-family: var(--font-heading);
+    font-weight: 400;
+    /* Thinner weights look more elegant/premium */
+    letter-spacing: 2px;
+    color: #fff;
+    text-transform: none;
+    margin-bottom: 2.5rem;
+    position: relative;
+    display: block;
+    /* Ensure it takes full width for centering logic */
+    white-space: nowrap;
+    /* Force single line on desktop */
+    opacity: 0;
+    animation: fadeReveal 1.5s ease-out forwards 0.5s;
+    text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    /* Deep shadow */
+}
+
+.hero-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    /* Longer elegant line */
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+    /* Fading line */
+    margin: 20px auto 0;
+}
+
+@keyframes fadeReveal {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.quote-container {
+    min-height: 50px;
+    margin-bottom: 2rem;
+}
+
+.hero-quote {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: #ccc;
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    animation: fadeUp 1s ease-out forwards;
+}
+
+.hero-quote:nth-child(2) {
+    animation-delay: 1.5s;
+    animation-fill-mode: forwards;
+}
+
+.hero-poem {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    color: #e0e0e0;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 1.5s ease-out forwards 1s;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Button */
+.btn-loading {
+    position: relative;
+    background: transparent;
+    color: var(--accent-gold);
+    border: 1px solid rgba(197, 160, 89, 0.3);
+    padding: 1rem 3rem;
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    transition: all 0.5s ease;
+    overflow: hidden;
+    z-index: 1;
+    text-decoration: none;
+    font-family: var(--font-body);
+}
+
+.btn-loading::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    background: var(--accent-gold);
+    z-index: -1;
+    transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.btn-loading:hover {
+    color: #000;
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 30px rgba(197, 160, 89, 0.3);
+}
+
+.btn-loading:hover::before {
+    width: 100%;
+}
+
+.btn {
+    /* Fallback/Generic Button Style */
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    margin-top: 2rem;
+    color: var(--accent-gold);
+    border: 1px solid var(--accent-gold);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.4s ease;
+    background: transparent;
+    cursor: pointer;
+}
+
+.hidden {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all var(--transition-speed) ease;
+}
+
+.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Particle Animation Class */
+.particle {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.3;
+    animation: float linear infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 0.5;
+    }
+
+    80% {
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Music Player Mini-widget (Fixed bottom right) */
+.music-control-fixed {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid var(--accent-gold);
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+
+.music-control-fixed:hover {
+    transform: scale(1.1);
+}
+
+/* Moments Gallery */
+.gallery-container {
+    display: flex;
+    gap: 30px;
+    overflow-x: auto;
+    padding: 40px 20px;
+    width: 100%;
+    scroll-snap-type: x mandatory;
+    justify-content: flex-start;
+    /* Better for scrolling */
+    align-items: center;
+    min-height: 500px;
+}
+
+.photo-card {
+    flex: 0 0 280px;
+    height: 400px;
+    background: #fff;
+    /* Frame color */
+    padding: 15px 15px 50px 15px;
+    /* Polaroid style bottom padding */
+    border: none;
+    border-radius: 2px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+    scroll-snap-align: center;
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transform-origin: center;
+    cursor: pointer;
+}
+
+.photo-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: sepia(0.2) contrast(1.1);
+    /* Vintage look */
+    border: 1px solid #ddd;
+    transition: all 0.5s ease;
+}
+
+.photo-card:hover,
+.photo-card:active {
+    transform: scale(1.1) rotate(0deg) !important;
+    /* Reset rotation and popup */
+    z-index: 10;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+}
+
+.photo-card:hover img {
+    filter: none;
+}
+
+.caption {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-family: 'Covered By Your Grace', cursive;
+    /* Handwritten feel if possible, or serif */
+    font-family: var(--font-heading);
+    color: #333;
+    /* Dark text on white frame */
+    font-size: 1.2rem;
+    background: transparent;
+    padding: 0;
+    transform: none;
+    opacity: 0.8;
+}
+
+.photo-card:hover .caption {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    .gallery-container {
+        gap: 15px;
+        padding: 20px;
+    }
+
+    .photo-card {
+        flex: 0 0 240px;
+        height: 340px;
+    }
+}
+
+/* Countdown - Professional Boxed */
+.countdown {
+    display: flex;
+    gap: 1.5rem;
+    margin: 3rem 0;
+    font-family: var(--font-heading);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.time-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(26, 26, 26, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.5rem 1rem;
+    /* Adjust padding */
+    width: 100px;
+    border-radius: 4px;
+    /* Sharp professional edges */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.time-unit:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-gold);
+}
+
+.time-unit::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--accent-gold);
+    opacity: 0.5;
+}
+
+.number {
+    font-size: 2.5rem;
+    color: #fff;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    position: relative;
+    z-index: 2;
+    font-variant-numeric: tabular-nums;
+    /* Prevent jitter */
+    animation: numberPulse 1s infinite alternate;
+}
+
+@keyframes numberPulse {
+    from {
+        color: #fff;
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+    }
+
+    to {
+        color: var(--accent-gold);
+        text-shadow: 0 0 15px rgba(197, 160, 89, 0.4);
+    }
+}
+
+.label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #888;
+    z-index: 2;
+}
+
+@media (max-width: 768px) {
+    .countdown {
+        gap: 10px;
+        margin: 2rem 0;
+    }
+
+    .time-unit {
+        width: 70px;
+        padding: 10px 5px;
+    }
+
+    .number {
+        font-size: 1.8rem;
+    }
+
+    .label {
+        font-size: 0.6rem;
+        letter-spacing: 1px;
+    }
+}
+
+/* Music Page */
+.song-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    width: 100%;
+}
+
+.song-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.song-card:hover,
+.song-card.active {
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 20px rgba(197, 160, 89, 0.2);
+}
+
+.song-img {
+    width: 100%;
+    height: 200px;
+    background: #222;
+    /* Placeholder */
+    margin-bottom: 15px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+/* Reasons - Premium Card Style */
+.reasons-list {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.reason-card {
+    position: relative;
+    padding: 3rem 2rem;
+    background: rgba(255, 255, 255, 0.02);
+    /* Extremely subtle */
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    text-align: center;
+    transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    cursor: pointer;
+    /* Backdrop blur for premium glass feel */
+    backdrop-filter: blur(5px);
+    width: 100%;
+}
+
+.reason-card:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(197, 160, 89, 0.3);
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.8);
+    transform: translateY(-5px);
+}
+
+.reason-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 1px;
+    background: var(--accent-gold);
+    transition: width 0.6s ease;
+    opacity: 0.5;
+}
+
+.reason-card:hover::before {
+    width: 80%;
+}
+
+.reason-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-style: italic;
+    color: #e0e0e0;
+    font-weight: 400;
+}
+
+.reason-card p {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    /* Larger for impact */
+    color: #ccc;
+    margin-top: 1rem;
+}
+
+.reason-card.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Pop Page */
+.pop-area {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+.pop-msg {
+    position: absolute;
+    color: var(--accent-gold);
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    pointer-events: none;
+    animation: popUp 2s forwards;
+    text-shadow: 0 0 5px black;
+}
+
+@keyframes popUp {
+    0% {
+        opacity: 0;
+        transform: scale(0.5) translateY(0);
+    }
+
+    20% {
+        opacity: 1;
+        transform: scale(1.1) translateY(-10px);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(1) translateY(-100px);
+    }
+}
+
+/* Surprise */
+.heartbeat-btn {
+    font-size: 5rem;
+    color: var(--accent-red);
+    cursor: pointer;
+    animation: heartbeat 1.5s infinite;
+    user-select: none;
+}
+
+@keyframes heartbeat {
+    0% {
+        transform: scale(1);
+    }
+
+    15% {
+        transform: scale(1.3);
+    }
+
+    30% {
+        transform: scale(1);
+    }
+
+    45% {
+        transform: scale(1.15);
+    }
+
+    60% {
+        transform: scale(1);
+    }
+}
+
+/* Navigation Footer */
+.nav-footer {
+    padding: 2rem;
+    margin-top: auto;
+    width: 100%;
+    text-align: center;
+    border-top: 1px solid var(--glass-border);
+}
+
+.nav-link {
+    color: #666;
+    text-decoration: none;
+    margin: 0 10px;
+    font-size: 0.8rem;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: var(--accent-gold);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .hero-box {
+        width: 90%;
+        padding: 2rem 1.5rem;
+        max-width: 320px;
+        /* Even smaller for mobile */
+    }
+
+    .hero-title {
+        font-size: 2rem;
+        /* Balanced mobile size */
+        white-space: normal;
+        /* Allow wrapping on mobile */
+        line-height: 1.2;
+        margin-bottom: 2rem;
+    }
+
+    .hero-quote {
+        font-size: 1rem;
+    }
+
+    .btn-loading {
+        padding: 1rem 2rem;
+        font-size: 0.75rem;
+        letter-spacing: 2px;
+    }
+
+    .countdown {
+        gap: 1rem;
+    }
+
+    .number {
+        font-size: 1.5rem;
+    }
+}

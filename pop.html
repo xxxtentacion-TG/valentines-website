@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pop My Heart</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Override specific for this page to make full screen click work */
+        .pop-instruction {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            opacity: 0.5;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 0.3;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+
+            100% {
+                opacity: 0.3;
+            }
+        }
+
+        .nav-footer {
+            position: relative;
+            z-index: 20;
+            /* Ensure footer is clickable */
+            background: rgba(0, 0, 0, 0.8);
+            /* readable bg */
+        }
+
+        /* Professional Button Styling */
+        .btn-loading {
+            position: relative;
+            padding: 1rem 3rem;
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+            text-decoration: none;
+            background: transparent;
+            border: 1px solid rgba(197, 160, 89, 0.5);
+            overflow: hidden;
+            transition: all 0.5s ease;
+            backdrop-filter: blur(5px);
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-loading::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: var(--accent-gold);
+            z-index: -1;
+            transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .btn-loading:hover {
+            color: #000;
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 30px rgba(197, 160, 89, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-loading:hover::before {
+            width: 100%;
+        }
+
+        /* Loading Dots Animation */
+        .btn-loading::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 2px;
+            background: rgba(197, 160, 89, 0.5);
+            animation: loadingLine 2s infinite ease-in-out;
+            opacity: 0;
+        }
+
+        .btn-loading:hover::after {
+            opacity: 1;
+        }
+
+        @keyframes loadingLine {
+            0% {
+                width: 0;
+                opacity: 0;
+            }
+
+            50% {
+                width: 30px;
+                opacity: 1;
+            }
+
+            100% {
+                width: 0;
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="bg-particles"></div>
+
+    <div class="pop-area"></div>
+
+    <h1 class="premium-title pop-instruction" style="font-size: 2rem;">Tap anywhere...</h1>
+
+    <!-- Link to next page positioned at bottom center above footer -->
+    <!-- Link to next page positioned at bottom center above footer -->
+    <div
+        style="position: fixed; bottom: 120px; left: 50%; transform: translateX(-50%); z-index: 20; width: 100%; display: flex; justify-content: center;">
+        <a href="surprise.html" class="btn-loading">
+            <span class="btn-text">One Last Thing</span>
+        </a>
+    </div>
+
+    <footer class="nav-footer">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="moments.html" class="nav-link">Moments</a>
+        <a href="music.html" class="nav-link">Music</a>
+        <a href="reasons.html" class="nav-link">Reasons</a>
+        <a href="pop.html" class="nav-link" style="color: var(--accent-gold);">Pop</a>
+        <a href="surprise.html" class="nav-link">Surprise</a>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
