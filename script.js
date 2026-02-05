@@ -104,11 +104,45 @@ function initTiltEffect() {
             card.style.setProperty('--mouse-y', `${(y / rect.height) * 100}%`);
         });
 
+        // Add Click Heart Burst
+        card.addEventListener('click', (e) => {
+            createHeartBurst(e.clientX, e.clientY);
+        });
+
         card.addEventListener('mouseleave', () => {
             // Reset
             card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
         });
     });
+}
+
+function createHeartBurst(x, y) {
+    const particleCount = 6;
+    for (let i = 0; i < particleCount; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('float-heart');
+        heart.innerHTML = '❤';
+
+        // Random Spread
+        const spreadX = (Math.random() - 0.5) * 60;
+        const spreadY = (Math.random() - 0.5) * 60;
+
+        heart.style.left = `${x + spreadX}px`;
+        heart.style.top = `${y + spreadY}px`;
+
+        // Random Size variation
+        const scale = Math.random() * 0.5 + 0.8;
+        heart.style.fontSize = `${scale}rem`;
+
+        // Random Animation Speed
+        heart.style.animationDuration = `${Math.random() * 0.5 + 1}s`;
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 1500);
+    }
 }
 
 /* --- Moments: Shuffle --- */
@@ -214,6 +248,10 @@ function initPopEffects() {
         const msg = document.createElement('div');
         msg.classList.add('pop-msg');
         msg.innerText = messages[Math.floor(Math.random() * messages.length)];
+
+        // Random Rotation for organic feel
+        const rot = (Math.random() - 0.5) * 20; // -10 to +10 deg
+        msg.style.setProperty('--rnd-rot', `${rot}deg`);
 
         msg.style.left = `${e.clientX}px`;
         msg.style.top = `${e.clientY}px`;

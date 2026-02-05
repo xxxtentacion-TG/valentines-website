@@ -774,6 +774,77 @@ p {
     }
 }
 
+/* Pop Page Messages */
+/* Pop Page Messages */
+.pop-msg {
+    position: absolute;
+    transform: translate(-50%, -50%) rotate(var(--rnd-rot));
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    /* Larger for impact */
+    font-style: italic;
+    color: var(--accent-gold);
+    text-shadow: 0 0 20px rgba(197, 160, 89, 0.6), 0 2px 4px rgba(0, 0, 0, 0.8);
+    /* Glow + Legibility */
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 100;
+    padding: 0;
+    /* No container padding */
+    background: transparent;
+    border: none;
+    animation: premiumFloat 2.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes premiumFloat {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) rotate(var(--rnd-rot)) scale(0.8) translateY(20px);
+        filter: blur(8px);
+    }
+
+    15% {
+        opacity: 1;
+        transform: translate(-50%, -50%) rotate(var(--rnd-rot)) scale(1) translateY(0);
+        filter: blur(0px);
+    }
+
+    85% {
+        opacity: 1;
+        transform: translate(-50%, -50%) rotate(var(--rnd-rot)) scale(1);
+        filter: blur(0px);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) rotate(var(--rnd-rot)) scale(1.1) translateY(-30px);
+        filter: blur(4px);
+    }
+}
+
+/* Floating Hearts (Reasons Page) */
+.float-heart {
+    position: absolute;
+    font-size: 1.2rem;
+    color: var(--accent-gold);
+    pointer-events: none;
+    animation: floatUpHeart 1.5s ease-out forwards;
+    z-index: 20;
+    text-shadow: 0 0 5px rgba(197, 160, 89, 0.5);
+}
+
+@keyframes floatUpHeart {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(0.5);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-50px) scale(1.5);
+    }
+}
+
 /* Surprise */
 .heartbeat-btn {
     font-size: 5rem;

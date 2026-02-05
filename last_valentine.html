@@ -60,9 +60,10 @@
             aspect-ratio: 3/4;
             /* Portrait photo ratio */
             background: #000;
-            border-radius: 12px;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.8);
-            transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            border-radius: 4px;
+            /* Sharper photo-print look */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
@@ -72,9 +73,9 @@
             z-index: 10;
             transform: translate(-50%, -50%) scale(1);
             opacity: 1;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 0 0 30px rgba(197, 160, 89, 0.15);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8), 0 0 40px rgba(197, 160, 89, 0.2);
             /* Soft gold glow */
-            border-color: rgba(197, 160, 89, 0.4);
+            border-color: var(--accent-gold);
         }
 
         /* Previous Slide (Left, blurred, smaller) */
@@ -114,9 +115,9 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            padding: 80px 20px 30px;
-            /* Gradient space */
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.95), transparent);
+            padding: 100px 20px 40px;
+            /* Deeper gradient space */
+            background: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.6) 50%, transparent 100%);
             text-align: center;
             opacity: 0;
             transform: translateY(20px);
@@ -131,10 +132,24 @@
 
         .caption-text {
             font-family: var(--font-heading);
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             color: #fff;
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 1);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
             font-style: italic;
+            letter-spacing: 1px;
+        }
+
+        /* Vignette Effect */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.6) 100%);
+            pointer-events: none;
+            z-index: 1;
         }
 
         /* Navigation Dots */
@@ -217,7 +232,10 @@
     <div id="bg-particles"></div>
 
     <div class="header-title">
-        <h1 class="premium-title" style="font-size: 1.8rem;">Last Valentine</h1>
+        <h1 class="premium-title"
+            style="font-size: 2.2rem; background: linear-gradient(to right, #fff, var(--accent-gold)); background-clip: text; -webkit-background-clip: text; color: transparent;">
+            Last Valentine</h1>
+        <div style="width: 40px; height: 1px; background: var(--accent-gold); margin: 10px auto; opacity: 0.5;"></div>
     </div>
 
     <div class="container">
@@ -258,12 +276,32 @@
                 </div>
             </div>
 
+            <!-- Slide 4 -->
+            <div class="slide" data-index="3" onclick="goToSlide(3)">
+                <img src="assets/images/img1.jpeg" onerror="this.src='assets/images/img1.jpeg'" class="slide-img"
+                    alt="Valentine Memory 4">
+                <div class="slide-overlay">
+                    <p class="caption-text">"Every moment counts."</p>
+                </div>
+            </div>
+
+            <!-- Slide 5 -->
+            <div class="slide" data-index="4" onclick="goToSlide(4)">
+                <img src="assets/images/img14.jpeg" onerror="this.src='assets/images/img2.jpeg'" class="slide-img"
+                    alt="Valentine Memory 5">
+                <div class="slide-overlay">
+                    <p class="caption-text">"Forever and always."</p>
+                </div>
+            </div>
+
         </div>
 
         <div class="slider-dots">
             <div class="dot" onclick="goToSlide(0)"></div>
             <div class="dot active" onclick="goToSlide(1)"></div>
             <div class="dot" onclick="goToSlide(2)"></div>
+            <div class="dot" onclick="goToSlide(3)"></div>
+            <div class="dot" onclick="goToSlide(4)"></div>
         </div>
 
         <div class="swipe-hint">Swipe to relive</div>
@@ -322,10 +360,16 @@
                 // Determine position relative to current
                 if (index === currentIndex) {
                     slide.classList.add('active');
+                    slide.style.opacity = '';
+                    slide.style.zIndex = '';
                 } else if (index === (currentIndex - 1 + totalSlides) % totalSlides) {
                     slide.classList.add('prev');
+                    slide.style.opacity = '';
+                    slide.style.zIndex = '';
                 } else if (index === (currentIndex + 1) % totalSlides) {
                     slide.classList.add('next');
+                    slide.style.opacity = '';
+                    slide.style.zIndex = '';
                 } else {
                     // For more than 3 slides, hide others or stack them
                     slide.style.opacity = '0';
