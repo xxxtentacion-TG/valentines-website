@@ -303,14 +303,18 @@ p {
 .continue-btn {
     position: relative;
     pointer-events: auto;
-    background: rgba(0, 0, 0, 0.9);
+    background: transparent;
+    /* Match generic btn */
     border: 1px solid var(--accent-gold);
     color: var(--accent-gold);
-    padding: 15px 40px;
-    border-radius: 50px;
+    padding: 1rem 3rem;
+    /* Match generic btn */
+    border-radius: 2px;
+    /* Boxy like others */
     font-family: var(--font-body);
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
+    /* Wider spacing */
     font-size: 0.9rem;
     text-decoration: none;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
